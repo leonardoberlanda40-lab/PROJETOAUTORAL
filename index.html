@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body{margin:0;display:flex;flex-direction:column;align-items:center;background:#f0f0f0;font-family:sans-serif}
+canvas{background:#fff;cursor:crosshair;box-shadow:0 4px 10px rgba(0,0,0,.1);margin-top:10px;border-radius:4px}
+.bar{background:#fff;padding:10px;border-radius:8px;box-shadow:0 2px 5px rgba(0,0,0,.1);display:flex;gap:15px;align-items:center;margin-top:10px}
+button,input{cursor:pointer}
+</style>
+</head>
+<body>
+<div class="bar">
+<input type="color" id="col" value="#000000">
+<input type="range" id="sz" min="1" max="50" value="5">
+<button id="er" onclick="tE()">Borracha</button>
+<button onclick="ctx.clearRect(0,0,c.width,c.height)">Limpar</button>
+</div>
+<canvas id="c" width="800" height="450"></canvas>
+<script>
+const c=document.getElementById('c'),ctx=c.getContext('2d');let d=false,e=false;
+ctx.lineCap='round';ctx.lineJoin='round';
+c.onmousedown=m=>{d=true;ctx.beginPath();ctx.moveTo(m.offsetX,m.offsetY)};
+c.onmousemove=m=>{if(!d)return;ctx.strokeStyle=e?'#fff':col.value;ctx.lineWidth=sz.value;ctx.lineTo(m.offsetX,m.offsetY);ctx.stroke()};
+window.onmouseup=()=>d=false;
+function tE(){e=!e;er.style.background=e?'#ddd':''}
+</script>
+</body>
+</html>
